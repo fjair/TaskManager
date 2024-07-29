@@ -131,8 +131,7 @@ public partial class IndexTasks
 
     Task DeleteGoalModal(GoalModel model)
     {
-        GoalModelRef = model;
-        DeleteModalRef.OtherMessage = "Las Tareas de esta Meta también se perderán";
+        GoalModelRef = model;        
         return DeleteModalRef.Open();
     }
 

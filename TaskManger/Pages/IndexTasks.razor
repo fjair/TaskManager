@@ -73,6 +73,7 @@ else
                                     </div>
                                 </div>
 
+                                <Small>Tareas Completadas: @data.TasksList.Where(x => !x.IsDeleted && x.IsCompleted).ToList().Count / @data.TasksList.Where(x => !x.IsDeleted).ToList().Count </Small>
                                 <RadzenProgressBar ProgressBarStyle="ProgressBarStyle.Primary" Value="@data.ProgressValue" />
                             </Template>
                         </RadzenDataGridColumn>                                                            
@@ -127,7 +128,7 @@ else
                     AllowFiltering="true"                    
                     AllowSorting="true" 
                     FilterMode="FilterMode.Advanced"                     
-                    PageSize="10" 
+                    PageSize="5" 
                     AllowPaging="true" 
                     PagerHorizontalAlign="HorizontalAlign.Left" 
                     ShowPagingSummary="true"
@@ -189,7 +190,7 @@ else
                         <Field>
                             <Small>Nombre:</Small>
                             <Validation Validator="ValidationRule.IsNotEmpty">
-                                <TextEdit Size="Size.Small" @bind-Text="GoalModelRef.Name">
+                                <TextEdit Size="Size.Small" @bind-Text="GoalModelRef.Name" MaxLength="80">
                                     <Feedback>
                                         <ValidationError>Campo Obligatorio!</ValidationError>
                                     </Feedback>
@@ -203,7 +204,7 @@ else
             <ModalFooter>
                 <Button Size="Size.Small" Color="Color.Primary" Clicked="@SaveGoal">
                     <Icon Name="IconName.Save"></Icon>
-                    <Strong>GUARDAR</Strong>
+                    <Strong>ACEPTAR</Strong>
                 </Button>
                 
                 <Button Background="Background.Transparent" Clicked="() => ModalGoalRef.Hide()">                    
@@ -231,7 +232,7 @@ else
                         <Field>
                             <Small>Nombre:</Small>
                             <Validation Validator="ValidationRule.IsNotEmpty">
-                                <TextEdit Size="Size.Small" @bind-Text="TaaskModelRef.Name">
+                                <TextEdit Size="Size.Small" @bind-Text="TaaskModelRef.Name" MaxLength="80">
                                     <Feedback>
                                         <ValidationError>Campo Obligatorio!</ValidationError>
                                     </Feedback>
@@ -245,7 +246,7 @@ else
             <ModalFooter>
                 <Button Size="Size.Small" Color="Color.Primary" Clicked="SaveTaask">
                     <Icon Name="IconName.Save"></Icon>
-                    <Strong>GUARDAR</Strong>
+                    <Strong>ACEPTAR</Strong>
                 </Button>
 
                 <Button Background="Background.Transparent" Clicked="() => ModalTaaskRef.Hide()">
@@ -256,8 +257,8 @@ else
     </Modal>
 
 
-    <TaskManger.Components.Shared.DeleteModal @ref="DeleteModalRef" DeleteRecord="() => OnDeleteGoal(GoalModelRef)" />
-    <TaskManger.Components.Shared.DeleteModal @ref="DeleteModalRef2" DeleteRecord="@OnDeleteTaaskl" />    
+    <TaskManger.Components.Shared.DeleteModal @ref="DeleteModalRef" DeleteRecord="() => OnDeleteGoal(GoalModelRef)" RecordName="@GoalModelRef.Name"/>
+    <TaskManger.Components.Shared.DeleteModal @ref="DeleteModalRef2" DeleteRecord="@OnDeleteTaaskl" RecordName="@TaaskModelRef.Name" />
 }
 
 
